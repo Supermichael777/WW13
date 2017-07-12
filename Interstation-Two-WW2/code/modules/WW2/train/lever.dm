@@ -77,13 +77,20 @@
 		if (findtext(what, "Start Train"))
 			what = replacetext(what, " (Start Train)", "")
 			switch (what)
-				if ("Push Forward")
-					train_controller.start_moving("FORWARDS")
-					visible_message("<span class = 'danger'>[user] pushes the train lever forward, starting the train!</span>")
-				if ("Pull Back")
-					train_controller.start_moving("BACKWARDS")
-					visible_message("<span class = 'danger'>[user] pulls back the train lever, starting the train!</span>")
-
+				var/list/hear = get_mobs_or_objects_in_view(world.view,src)
+				for(var/I in hear)
+					if(ismob(I))
+						var/mob/M = I
+						M << "<span class='warning'>You hear grinding and hissing as the train starts to move!</span>"
+				if(do_after(user, 40, src))
+					if ("Push Forward")
+						train_controller.start_moving("FORWARDS")
+						visible_message("<span class = 'danger'>[user] pushes the train lever forward, starting the train!</span>")
+					if ("Pull Back")
+						train_controller.start_moving("BACKWARDS")
+						visible_message("<span class = 'danger'>[user] pulls back the train lever, starting the train!</span>")
+				else
+					visible_message("<span class = 'notice'>The train stalls out!</span>")
 		else if (findtext(what, "Stop Train"))
 			what = replacetext(what, " (Stop Train)", "")
 			switch (what)
