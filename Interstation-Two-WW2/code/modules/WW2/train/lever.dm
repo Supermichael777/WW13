@@ -81,7 +81,7 @@
 				for(var/I in hear)
 					if(ismob(I))
 						var/mob/M = I
-						M << "<span class='warning'>You hear grinding and hissing as the train starts to move!</span>"
+						M << "<span class='Danger'>You hear grinding and hissing as the train starts to move!</span>"
 				if(do_after(user, 40, src))
 					if ("Push Forward")
 						train_controller.start_moving("FORWARDS")
